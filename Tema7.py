@@ -1,3 +1,5 @@
+import math
+
 '''1.Git setup
 
 OBLIGATORIU!
@@ -42,7 +44,11 @@ Implementati metoda ceruta de interfata (optional, doar daca ati ales sa impleme
 class Patrat(FormaGeometrica):
     # constructor
     def __init__(self, latura):
-        self.latura= '15'
+        self.latura= latura
+
+    # ENCAPSULATION
+    def __init__(self, latura):
+        self.__latura = latura
 
     @property  # initializam proprietatea variabilei private prin adnotare
     def latura(self):
@@ -56,8 +62,23 @@ class Patrat(FormaGeometrica):
     def latura(self, latura):
         self.__latura = latura
         print(f'latura este {self.__latura}')
-a = Patrat('15')
-a.latura
+
+    @latura.deleter
+    def delete_latura(self):
+        print(f'Deleter:am sters dimensiunea.')
+        self.__latura = None
+
+    def aria(self):
+        aria = int(self.__latura) * int(self.__latura)
+        return aria
+
+patrat1=Patrat('15')
+patrat1.descrie()
+patrat1.set_latura='8'
+patrat1.set_latura
+print(patrat1.aria())
+del patrat1.delete_latura
+patrat1.set_latura
 
 '''Clasa Cerc - mosteneste FormaGeometrica
 constructor pt raza
@@ -68,7 +89,11 @@ Implementati metoda ceruta de interfata - in calcul folositi field PI mostenit d
 class Cerc(FormaGeometrica):
     # constructor
     def __init__(self, raza):
-        self.raza= '100'
+        self.raza = raza
+     # ENCAPSULATION
+    def __init__(self, raza, pi):
+        self.__raza = raza
+        self.__pi = pi
 
     @property  # initializam proprietatea variabilei private prin adnotare
     def raza(self):
@@ -82,8 +107,26 @@ class Cerc(FormaGeometrica):
     def raza(self, raza):
         self.__raza = raza
         print(f'raza este {self.__raza}')
-a = Cerc('100')
-a.raza
+    @raza.deleter
+    def delete_raza(self):
+        print(f'Deleter:am sters dimensiunea laturii.')
+        self.__raza = None
+
+    def aria(self):
+        aria = self.pi * int(self.__raza) ** 2
+        return aria
+
+    # polymorphism
+    def descrie(self):
+        print('Eu nu am colturi')
+cerc1=Cerc('17', '3.14')
+cerc1.descrie()
+cerc1.set_raza='2'
+cerc1.set_raza
+print(cerc1.aria())
+del cerc1.delete_raza
+cerc1.set_raza
+
 
 
 '''POLYMORPHISM
