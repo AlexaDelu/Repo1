@@ -232,7 +232,7 @@ vopseste(culoare) - se va vopsi masina in noua culoare DOAR daca noua culoare e 
 accelereaza(viteza) - se va accelera la o anumita viteza, daca viteza e negativa-eroare, daca viteza e mai mare decat viteza_max - masina va accelera pana la viteza maxima
 franeaza() - masina se va opri si va avea viteza'''
 
-Clasa Masina
+
 class Masina:
     culoare = 'gri'
     viteza_actuala = 0
@@ -243,6 +243,9 @@ class Masina:
     def __init__(self, model, viteza_maxima):
         self.model = model
         self.viteza_maxima = viteza_maxima
+
+    def descrie(self):
+        print('Masina este', self.culoare, 'marca', self.marca, 'inmatriculata', self.inmatriculata, 'si are viteza actuala',self.viteza_actuala)
 
     def inmatriculare(self):
         self.inmatriculata = True
