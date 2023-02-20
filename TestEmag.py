@@ -25,8 +25,6 @@ class TestEMag(unittest.TestCase):
         expected = "eMAG.ro - Libertate în fiecare zi"
         self.assertEqual(expected, actual, 'Page title is incorrect')
 
-
-
     #Test- cautare produs
     def test_search_laptop(self):
         search_box = self.chrome.find_element(By.NAME, "query")
@@ -50,6 +48,7 @@ class TestEMag(unittest.TestCase):
         expected = "Produsul a fost adaugat in cos"
         self.assertEqual(expected, actual, 'Produsul nu a fost adaugat in cos')
 
+     #Test stergere produs din cos
     def test_remove_product_from_cart(self):
         self.chrome.get("https://www.emag.ro/cart/products?ref=cart")
         wait = WebDriverWait(self.chrome, 10)
@@ -58,8 +57,13 @@ class TestEMag(unittest.TestCase):
         empty_cart_msg = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.cart-empty")))
         assert "Cosul tau de cumparaturi este gol" in empty_cart_msg.text
 
-    #Test login nereusit deoarece site-ul utilizeaza captcha
+    #Test "Oferta zilei" banner is present:
+    def test_DailyOffer(self):
+        self.chrome.get("https://www.emag.ro/")
+        banner = self.chrome.find_element(By.CSS_SELECTOR, 'img[title="DOD 20 FEB"]')
+        assert banner.get_attribute("alt") == "DOD 20 FEB"
 
+    #Test login nereusit deoarece site-ul utilizeaza captcha
     def test_login_account(self):
         self.chrome.get("https://auth.emag.ro/user/login")
         # Wait for the email input field to be visible
@@ -72,7 +76,7 @@ class TestEMag(unittest.TestCase):
         password_input = WebDriverWait(self.chrome, 10).until(
             EC.visibility_of_element_located((By.ID, "user_login_password"))
         )
-        password_input.send_keys("1parolasimpla")
+        password_input.send_keys("oriceparola")
         submit_button = self.chrome.find_element(By.ID, "user_login_continue")
         submit_button.click()
 
